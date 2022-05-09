@@ -1,5 +1,5 @@
 defmodule KV.Bucket do
-  use Agent
+  use Agent, restart: :temporary
 
   @doc """
   Starts a new bucket.
@@ -24,7 +24,7 @@ defmodule KV.Bucket do
   end
 
   #server callback
-  
+
   def  handle_call({:put, key, value}, _from, state) do
     {:reply, :ok, Map.put(state, key, value)}
   end

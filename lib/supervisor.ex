@@ -16,11 +16,11 @@ defmodule KV.Supervisor do
 
   def init(:ok) do
     children = [
-      {KV.Registry, name: KV.Registry},
-      {DynamicSupervisor, name: KV.BucketSupervisor, strategy: :one_for_one}
+      {DynamicSupervisor, name: KV.BucketSupervisor, strategy: :one_for_one},
+      {KV.Registry, name: KV.Registry}
     ]
-
-    Supervisor.init(children, strategy: :one_for_one)
+    #using one_for_all strategy will kill and restarat when any of children process dies
+    Supervisor.init(children, strategy: :one_for_all)
 
   end
 end
